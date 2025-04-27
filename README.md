@@ -52,6 +52,7 @@ Navigate to the `data-pipeline/` directory and run docker container:
 
 ```bash
 cd data-pipeline
+mkdir logs
 docker compose up airflow-init
 docker compose up --build
 ```
