@@ -29,11 +29,11 @@ project-root/
 
 ## ⚙️ Data Model 
 
-![Data Model](screenshots/Data Model.png)
+![Data Model](screenshots/data_model.png)
 
 ## ⚙️ Data Pipeline 
 
-![Data Pipeline](screenshots/Data Pipeline.png)
+![Data Pipeline](screenshots/data_pipeline.png)
 
 - **Extract**: Data is collected from xlsx file.
 - **Transform**: Data is transformed and validated using custom Python logic in DAGs.
@@ -72,12 +72,12 @@ Go to url:http://localhost:8080
     - Password: irsyad-afpi-test
     - Port: 5432
 
-### 3. Run Dags
+### 4. Run Dags
 
 1. Click on DAGs Navbar 
 2. Click Action on ticket pipeline list
 
-### 4. Run Data Visualization Scripts
+### 5. Run Data Visualization Scripts
 
 Navigate to the `data-visualization/` directory and run python code:
 
@@ -89,11 +89,11 @@ python3 visualize.py
 
 ## 📊 Result
 
-### 📊 Data Visualization
+### Data Visualization
 
-![Data Visualization](screenshots/ticket size line chart.png)
+![Data Visualization](screenshots/ticket_size_line_chart.png)
 
-### 📊 Data CSV
+### Data CSV
 
 Deliverable csv can be seen in directory result.
 
