@@ -1,0 +1,57 @@
+version: '3.8'
+
+x-airflow-common:
+  &airflow-common
+  build: .
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://irsyad:irsyad-afpi-test@postgres/db-afpi-recruitment-test
+    _AIRFLOW_WWW_USER_USERNAME: irsyad
+    _AIRFLOW_WWW_USER_PASSWORD: irsyad-afpi-test
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./data:/opt/airflow/data
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+    - ./requirements.txt:/requirements.txt
+  user: "50000:0"
+  depends_on:
+    - postgres
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: irsyad
+      POSTGRES_PASSWORD: irsyad-afpi-test
+      POSTGRES_DB: db-afpi-recruitment-test
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-afpi-db-volume:/var/lib/postgresql/data
+      - ./ddl:/docker-entrypoint-initdb.d
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 10s
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+
+  airflow-init:
+    <<: *airflow-common
+    command: bash -c "pip install -r /requirements.txt && airflow db migrate && airflow users create --username irsyad --password irsyad-afpi-test --firstname irsyad --lastname farhan --role Admin --email irsyadfarhanr@gmail.com"
+
+volumes:
+  postgres-afpi-db-volume:
