@@ -76,7 +76,7 @@ Go to url:http://localhost:8080
 ### 4. Run Dags
 
 1. Click on DAGs Navbar
-2. Click Action ▶ on the left list to run ETL DAG
+2. Click Action ▶ on the right side to run ETL DAG
 
 ### 5. Run Data Visualization Scripts
 
